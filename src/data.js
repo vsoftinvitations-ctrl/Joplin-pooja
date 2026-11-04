@@ -72,6 +72,12 @@ export const PHOTOS = {
   gallery: "/assets/gllry.png",
   gallery1: "/assets/gllry1.jpeg",
   gallery2: "/assets/gllry2.jpeg",
+  gallery3: "/assets/gllry3.jpeg",
+  gallery4: "/assets/gllry4.jpeg",
+  gallery5: "/assets/gllry5.jpeg",
+  gallery6: "/assets/gllry6.jpeg",
+  gallery7: "/assets/gllry7.jpeg",
+  gallery8: "/assets/gllry8.jpeg",
   a: "/assets/img2.webp",
   b: "/assets/preview.webp"
 };

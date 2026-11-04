@@ -789,7 +789,7 @@ body.petals-active #rose-petals-canvas {
 
 .gallery-scroll-track {
   position: relative;
-  height: 240vh; /* Smooth scroll runway for 3 photos */
+  height: 650vh; /* Smooth scroll runway for 9 photos */
   width: 100%;
 }
 
@@ -892,16 +892,12 @@ body.petals-active #rose-petals-canvas {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   display: block;
 }
 
 .rolling-photo.photo-0 {
   object-position: center;
-}
-
-.rolling-photo.photo-1,
-.rolling-photo.photo-2 {
-  object-position: center 20%;
 }
 
 /* Fallback for classic .gal if rendered */

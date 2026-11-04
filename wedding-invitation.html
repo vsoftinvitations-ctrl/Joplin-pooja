@@ -1242,7 +1242,7 @@
 
     .gallery-scroll-track {
       position: relative;
-      height: 240vh;
+      height: 650vh;
       width: 100%;
     }
 
@@ -1426,6 +1426,12 @@
       gallery: "/assets/gllry.png",
       gallery1: "/assets/gllry1.jpeg",
       gallery2: "/assets/gllry2.jpeg",
+      gallery3: "/assets/gllry3.jpeg",
+      gallery4: "/assets/gllry4.jpeg",
+      gallery5: "/assets/gllry5.jpeg",
+      gallery6: "/assets/gllry6.jpeg",
+      gallery7: "/assets/gllry7.jpeg",
+      gallery8: "/assets/gllry8.jpeg",
       a: "/assets/img2.webp",
       b: "/assets/preview.webp"
     };
@@ -1604,6 +1610,42 @@
                 <img src="${PHOTOS.gallery2}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-2" loading="lazy" decoding="async" />
               </div>
             </div>
+
+            <div class="rolling-card" data-index="3">
+              <div class="rolling-card-inner">
+                <img src="${PHOTOS.gallery3}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-3" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <div class="rolling-card" data-index="4">
+              <div class="rolling-card-inner">
+                <img src="${PHOTOS.gallery4}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-4" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <div class="rolling-card" data-index="5">
+              <div class="rolling-card-inner">
+                <img src="${PHOTOS.gallery5}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-5" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <div class="rolling-card" data-index="6">
+              <div class="rolling-card-inner">
+                <img src="${PHOTOS.gallery6}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-6" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <div class="rolling-card" data-index="7">
+              <div class="rolling-card-inner">
+                <img src="${PHOTOS.gallery7}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-7" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <div class="rolling-card" data-index="8">
+              <div class="rolling-card-inner">
+                <img src="${PHOTOS.gallery8}" alt="${W.groom} and ${W.bride}" class="rolling-photo photo-8" loading="lazy" decoding="async" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1666,6 +1708,8 @@
       let currentIndex = 0;
       const total = cards.length;
       let isProgrammatic = false;
+
+      track.style.height = `${Math.max(total * 80, 240)}vh`;
 
       function updateCard(newIndex) {
         if (newIndex < 0 || newIndex >= total) return;

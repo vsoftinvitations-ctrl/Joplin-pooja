@@ -18,6 +18,30 @@ export const GALLERY_ITEMS = [
   {
     src: "/assets/gllry2.jpeg",
     alt: "Jorlin & Pooja"
+  },
+  {
+    src: "/assets/gllry3.jpeg",
+    alt: "Jorlin & Pooja"
+  },
+  {
+    src: "/assets/gllry4.jpeg",
+    alt: "Jorlin & Pooja"
+  },
+  {
+    src: "/assets/gllry5.jpeg",
+    alt: "Jorlin & Pooja"
+  },
+  {
+    src: "/assets/gllry6.jpeg",
+    alt: "Jorlin & Pooja"
+  },
+  {
+    src: "/assets/gllry7.jpeg",
+    alt: "Jorlin & Pooja"
+  },
+  {
+    src: "/assets/gllry8.jpeg",
+    alt: "Jorlin & Pooja"
   }
 ];
 
@@ -62,6 +86,9 @@ export function initRollingGallery() {
   let currentIndex = 0;
   const total = cards.length;
   let isProgrammaticScroll = false;
+
+  // Set comfortable scroll runway: ~80vh per photo
+  track.style.height = `${Math.max(total * 80, 240)}vh`;
 
   function updateActiveCard(newIndex) {
     if (newIndex < 0 || newIndex >= total) return;
