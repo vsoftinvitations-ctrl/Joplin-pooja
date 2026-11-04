@@ -1,9 +1,9 @@
 // ==========================================
-// CLIENT DETAILS — EDIT THESE 5 LINES:
+// CLIENT DETAILS:
 // ==========================================
 const NAME_1 = "Jorlin";
 const NAME_2 = "Pooja";
-const WEDDING_DATE = "16 . NOVEMBER . 2026";
+const WEDDING_DATE = "Monday, 16 November 2026";
 const BG_IMAGE_URL = "/assets/preloder.png";
 const BG_MUSIC_URL = "/wedding.mp3";
 // ==========================================
@@ -36,24 +36,25 @@ function playMusic() {
       return;
     }
 
-    bgAudio.volume = 0.05;
+    bgAudio.volume = 0.04;
     const promise = bgAudio.play();
     if (promise !== undefined) {
       promise.then(() => {
-        let vol = 0.05;
+        let vol = 0.04;
         if (audioFadeInterval) clearInterval(audioFadeInterval);
         audioFadeInterval = setInterval(() => {
-          vol = Math.min(TARGET_AUDIO_VOLUME, vol + 0.03);
+          vol = Math.min(TARGET_AUDIO_VOLUME, vol + 0.015);
           if (bgAudio) bgAudio.volume = vol;
           if (vol >= TARGET_AUDIO_VOLUME) {
             clearInterval(audioFadeInterval);
             audioFadeInterval = null;
           }
-        }, 70);
+        }, 120);
       }).catch(() => { });
     }
   } catch (e) { }
 }
+
 export function renderPreloader(customConfig = {}) {
   const name1 = customConfig.name1 || customConfig.groom || NAME_1;
   const name2 = customConfig.name2 || customConfig.bride || NAME_2;
@@ -61,13 +62,14 @@ export function renderPreloader(customConfig = {}) {
   const bgImg = customConfig.bgImage || BG_IMAGE_URL;
 
   return `
-    <div id="wedding-preloader" class="wedding-preloader" role="dialog" aria-modal="true" aria-label="Wedding Invitation Preloader">
-      <!-- Fullscreen Background Image with Ken Burns effect -->
+    <div id="wedding-preloader" class="wedding-preloader" role="dialog" aria-modal="true" aria-label="Wedding Invitation">
+      <!-- Fullscreen Background Image -->
       <div class="preloader-bg-media">
         <img src="${bgImg}" alt="${name1} &amp; ${name2}" class="preloader-bg-img" />
         <div class="preloader-overlay"></div>
       </div>
-      <!-- Floating Gold Stardust -->
+
+      <!-- Floating Gold Stardust Particles -->
       <div class="preloader-particles" aria-hidden="true">
         <span class="preloader-particle p1"></span>
         <span class="preloader-particle p2"></span>
@@ -76,70 +78,59 @@ export function renderPreloader(customConfig = {}) {
         <span class="preloader-particle p5"></span>
         <span class="preloader-particle p6"></span>
       </div>
-      <!-- Initial Gate: Center Tagline + Tap to Open Button -->
-      <div class="preloader-gate-wrapper" id="preloader-gate-wrapper">
-        <div class="preloader-gate-center">
-          <div class="preloader-gate-badge">
-            <span class="preloader-tagline">WEDDING INVITATION</span>
-          </div>
-          <div class="preloader-gate-bottom">
-            <button class="preloader-open-pill-btn" id="preloader-enter-btn" aria-label="Tap to Open Invitation">
-              <span>Tap to Open</span>
-            </button>
-          </div>
+
+      <!-- Main Couple & Date Showcase (Exact Match to Reference Picture) -->
+      <div class="preloader-showcase-container" id="preloader-showcase-container">
+        <!-- Top Tagline with flanking lines -->
+        <div class="preloader-showcase-tagline">
+          <span class="preloader-tagline-line" aria-hidden="true"></span>
+          <span class="preloader-tagline-text">WEDDING INVITATION</span>
+          <span class="preloader-tagline-line" aria-hidden="true"></span>
         </div>
-      </div>
-      <!-- Center Handwriting Script Animation -->
-      <div class="preloader-content" id="preloader-content-box">
-        <div class="preloader-top-badge">
-          <span class="preloader-tagline">WEDDING INVITATION</span>
+
+        <!-- Couple Names -->
+        <div class="preloader-names-showcase">
+          <div class="preloader-name">${name1}</div>
+          <div class="preloader-amp">&amp;</div>
+          <div class="preloader-name">${name2}</div>
         </div>
-        <div class="preloader-script-container" id="preloader-script-box">
-          <!-- Line 1: First Name (Jorlin) -->
-          <div class="script-line script-name-1">
-            <span class="script-text">${name1}</span>
-            <span class="calligraphy-pen-spark"></span>
+
+        <!-- Bottom Block: Heart Divider + Wedding Date + Subtle Tap Hint -->
+        <div class="preloader-bottom-block">
+          <!-- Delicate Heart Divider with flanking lines -->
+          <div class="preloader-heart-divider" aria-hidden="true">
+            <span class="preloader-heart-line"></span>
+            <svg class="preloader-heart-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span class="preloader-heart-line"></span>
           </div>
-          <!-- Line 2: Ampersand -->
-          <div class="script-line script-ampersand">
-            <span class="script-text">&amp;</span>
+
+          <!-- Wedding Date -->
+          <div class="preloader-showcase-date">
+            ${date}
           </div>
-          <!-- Line 3: Second Name (Pooja) -->
-          <div class="script-line script-name-2">
-            <span class="script-text">${name2}</span>
-            <span class="calligraphy-pen-spark"></span>
-          </div>
-          <!-- Underline Calligraphy Flourish -->
-          <div class="flourish-wrap">
-            <svg class="calligraphy-flourish" viewBox="0 0 280 26" fill="none">
-              <path class="flourish-path" d="M14,14 C65,4 105,6 140,16 C175,24 215,10 266,8" stroke="url(#goldFlourishGrad)" stroke-width="2.2" stroke-linecap="round" />
-              <defs>
-                <linearGradient id="goldFlourishGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="rgba(245, 230, 180, 0.1)" />
-                  <stop offset="35%" stop-color="rgba(255, 235, 170, 0.95)" />
-                  <stop offset="70%" stop-color="rgba(218, 165, 32, 0.95)" />
-                  <stop offset="100%" stop-color="rgba(245, 230, 180, 0.1)" />
-                </linearGradient>
-              </defs>
+
+          <!-- Subtle Tap to Open Prompt -->
+          <div class="preloader-tap-hint" id="preloader-enter-btn" role="button" tabindex="0" aria-label="Tap to Open Invitation">
+            <span class="tap-hint-text">Tap anywhere to open</span>
+            <svg class="tap-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
             </svg>
           </div>
-        </div>
-        <!-- Date -->
-        <div class="preloader-subtext">
-          <p class="preloader-date">${date}</p>
         </div>
       </div>
     </div>
   `;
 }
+
 export function initPreloader(onDismissCallback) {
   const preloader = document.getElementById('wedding-preloader');
   if (!preloader) return;
 
-  let stage = 'waiting'; // 'waiting' | 'revealing' | 'dismissed'
-  let autoDismissTimer = null;
+  let isDismissed = false;
 
-  // Strict scroll lock on both html and body
+  // Strict scroll lock while preloader is active
   document.documentElement.classList.add('preloader-active');
   document.body.classList.add('preloader-active');
   document.documentElement.style.overflow = 'hidden';
@@ -147,17 +138,10 @@ export function initPreloader(onDismissCallback) {
   window.scrollTo(0, 0);
 
   const enterBtn = document.getElementById('preloader-enter-btn');
-  const gateWrapper = document.getElementById('preloader-gate-wrapper');
+  const showcaseContainer = document.getElementById('preloader-showcase-container');
 
   function preventScroll(e) {
-    if (stage !== 'dismissed') {
-      // Never cancel touch/pointer interactions on the 'Tap to Open' button or the gate area
-      if (enterBtn && (e.target === enterBtn || enterBtn.contains(e.target))) {
-        return;
-      }
-      if (gateWrapper && (e.target === gateWrapper || gateWrapper.contains(e.target))) {
-        return;
-      }
+    if (!isDismissed) {
       if (e.cancelable) {
         e.preventDefault();
       }
@@ -168,62 +152,28 @@ export function initPreloader(onDismissCallback) {
   window.addEventListener('wheel', preventScroll, { passive: false });
   window.addEventListener('touchmove', preventScroll, { passive: false });
 
-  // Pre-load font in background
+  // Pre-load cursive font
   if (document.fonts?.load) {
+    document.fonts.load('48px "Alex Brush"').catch(() => { });
     document.fonts.load('48px "Brittany Signature"').catch(() => { });
   }
 
-  function handleTapToOpen() {
-    if (stage !== 'waiting') return;
-    stage = 'revealing';
+  function dismiss() {
+    if (isDismissed) return;
+    isDismissed = true;
 
-    // 1. Play music immediately on user gesture
+    // Start audio immediately on gesture
     playMusic();
 
-    // 2. Start handwriting animation
-    preloader.classList.add('preloader-animating');
-
-    // 3. Shimmer sweep after writing finishes (3.6s)
-    setTimeout(() => {
-      const scriptBox = document.getElementById('preloader-script-box');
-      if (scriptBox) {
-        scriptBox.classList.add('shimmer-active');
-        scriptBox.querySelectorAll('.script-text').forEach((el) => {
-          el.style.clipPath = 'none';
-          el.style.opacity = '1';
-          el.style.visibility = 'visible';
-        });
-      }
-    }, 3600);
-
-    // 4. Smooth reveal of the invitation page after writing completes (5.2s)
-    autoDismissTimer = setTimeout(() => {
-      dismissPreloader();
-    }, 5200);
-
-    // Allow tapping anywhere to enter immediately without waiting
-    setTimeout(() => {
-      preloader.addEventListener('click', () => {
-        if (stage === 'revealing') {
-          dismissPreloader();
-        }
-      }, { once: true });
-    }, 1200);
-  }
-
-  function dismissPreloader() {
-    if (stage === 'dismissed') return;
-    stage = 'dismissed';
-    if (autoDismissTimer) clearTimeout(autoDismissTimer);
-
-    // Remove scroll locks
+    // Remove scroll prevention
     window.removeEventListener('wheel', preventScroll);
     window.removeEventListener('touchmove', preventScroll);
 
-    playMusic();
+    // Trigger smooth, slow, elegant fade out (2.4s cinematic dissolve)
     preloader.classList.add('preloader-fade-out');
     preloader.style.pointerEvents = 'none';
 
+    // Unlock body scrolling smoothly
     document.documentElement.classList.remove('preloader-active');
     document.body.classList.remove('preloader-active');
     document.documentElement.style.overflow = '';
@@ -232,52 +182,44 @@ export function initPreloader(onDismissCallback) {
     document.body.style.height = '';
 
     if (typeof onDismissCallback === 'function') {
-      try { onDismissCallback(); } catch (err) { console.error(err); }
+      try {
+        onDismissCallback();
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     setTimeout(() => {
       preloader.style.display = 'none';
       preloader.setAttribute('aria-hidden', 'true');
-    }, 1250);
+    }, 2400);
   }
 
-  // Both the 'Tap to Open' button and the gate area open the invitation cleanly across all devices
+  // Tap button or hint to open
   if (enterBtn) {
-    let triggered = false;
-    function triggerOpen(e) {
-      if (triggered || stage !== 'waiting') return;
-      triggered = true;
-      if (e) {
-        e.stopPropagation();
-      }
-      playMusic();
-      handleTapToOpen();
-    }
-
-    // Direct click & touch events
-    enterBtn.addEventListener('click', triggerOpen);
-    enterBtn.addEventListener('touchend', triggerOpen, { passive: true });
-
-    // Allow tapping the gate badge / container as well so users never miss
-    if (gateWrapper) {
-      gateWrapper.addEventListener('click', triggerOpen);
-      gateWrapper.addEventListener('touchend', triggerOpen, { passive: true });
-    }
-
-    // Keyboard accessibility support
+    enterBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismiss();
+    });
+    enterBtn.addEventListener('touchend', (e) => {
+      e.stopPropagation();
+      dismiss();
+    }, { passive: true });
     enterBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        triggerOpen(e);
+        dismiss();
       }
     });
   }
 
-  // Strictly disallow clicking high up on the background photo to prevent accidental skips
-  preloader.addEventListener('click', (e) => {
-    if ((enterBtn && (e.target === enterBtn || enterBtn.contains(e.target))) ||
-        (gateWrapper && (e.target === gateWrapper || gateWrapper.contains(e.target)))) {
-      return;
-    }
-    e.stopPropagation();
+  // Tapping the showcase area or anywhere on the preloader opens the invitation
+  if (showcaseContainer) {
+    showcaseContainer.addEventListener('click', () => {
+      dismiss();
+    });
+  }
+
+  preloader.addEventListener('click', () => {
+    dismiss();
   });
 }

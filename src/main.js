@@ -26,7 +26,7 @@ if (app) {
     ${renderPreloader({
       name1: W.groom,
       name2: W.bride,
-      date: "16 . NOVEMBER . 2026"
+      date: `${D.day}, ${D.full}`
     })}
     <canvas id="rose-petals-canvas" aria-hidden="true"></canvas>
 
