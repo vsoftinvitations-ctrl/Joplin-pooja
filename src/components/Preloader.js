@@ -63,7 +63,7 @@ export function renderPreloader(customConfig = {}) {
 
   return `
     <div id="wedding-preloader" class="wedding-preloader" role="dialog" aria-modal="true" aria-label="Wedding Invitation">
-      <!-- Fullscreen Background Image -->
+      <!-- Fullscreen Background Image with Ken Burns effect -->
       <div class="preloader-bg-media">
         <img src="${bgImg}" alt="${name1} &amp; ${name2}" class="preloader-bg-img" />
         <div class="preloader-overlay"></div>
@@ -79,7 +79,7 @@ export function renderPreloader(customConfig = {}) {
         <span class="preloader-particle p6"></span>
       </div>
 
-      <!-- Main Couple & Date Showcase (Exact Match to Reference Picture) -->
+      <!-- Main Couple & Date Showcase (Exact Match to Your Screenshot) -->
       <div class="preloader-showcase-container" id="preloader-showcase-container">
         <!-- Top Tagline with flanking lines -->
         <div class="preloader-showcase-tagline">
@@ -95,29 +95,25 @@ export function renderPreloader(customConfig = {}) {
           <div class="preloader-name">${name2}</div>
         </div>
 
-        <!-- Bottom Block: Heart Divider + Wedding Date + Subtle Tap Hint -->
-        <div class="preloader-bottom-block">
-          <!-- Delicate Heart Divider with flanking lines -->
-          <div class="preloader-heart-divider" aria-hidden="true">
-            <span class="preloader-heart-line"></span>
-            <svg class="preloader-heart-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-            <span class="preloader-heart-line"></span>
-          </div>
+        <!-- Delicate Heart Divider with flanking lines -->
+        <div class="preloader-heart-divider" aria-hidden="true">
+          <span class="preloader-heart-line"></span>
+          <svg class="preloader-heart-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span class="preloader-heart-line"></span>
+        </div>
 
-          <!-- Wedding Date -->
-          <div class="preloader-showcase-date">
-            ${date}
-          </div>
+        <!-- Wedding Date -->
+        <div class="preloader-showcase-date">
+          ${date}
+        </div>
 
-          <!-- Subtle Tap to Open Prompt -->
-          <div class="preloader-tap-hint" id="preloader-enter-btn" role="button" tabindex="0" aria-label="Tap to Open Invitation">
-            <span class="tap-hint-text">Tap anywhere to open</span>
-            <svg class="tap-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
-          </div>
+        <!-- Tap to Open Pill Button -->
+        <div class="preloader-open-bottom">
+          <button class="preloader-open-pill-btn" id="preloader-enter-btn" aria-label="Tap to Open Invitation">
+            <span>TAP TO OPEN</span>
+          </button>
         </div>
       </div>
     </div>
@@ -142,6 +138,9 @@ export function initPreloader(onDismissCallback) {
 
   function preventScroll(e) {
     if (!isDismissed) {
+      if (enterBtn && (e.target === enterBtn || enterBtn.contains(e.target))) {
+        return;
+      }
       if (e.cancelable) {
         e.preventDefault();
       }
@@ -154,7 +153,6 @@ export function initPreloader(onDismissCallback) {
 
   // Pre-load cursive font
   if (document.fonts?.load) {
-    document.fonts.load('48px "Alex Brush"').catch(() => { });
     document.fonts.load('48px "Brittany Signature"').catch(() => { });
   }
 
@@ -169,7 +167,7 @@ export function initPreloader(onDismissCallback) {
     window.removeEventListener('wheel', preventScroll);
     window.removeEventListener('touchmove', preventScroll);
 
-    // Trigger smooth, slow, elegant fade out (2.4s cinematic dissolve)
+    // Trigger smooth, slow, elegant fade out (2.4s cinematic dissolve - doesn't open fastly)
     preloader.classList.add('preloader-fade-out');
     preloader.style.pointerEvents = 'none';
 
@@ -195,7 +193,7 @@ export function initPreloader(onDismissCallback) {
     }, 2400);
   }
 
-  // Tap button or hint to open
+  // Tap button to open
   if (enterBtn) {
     enterBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -214,7 +212,7 @@ export function initPreloader(onDismissCallback) {
 
   // Tapping the showcase area or anywhere on the preloader opens the invitation
   if (showcaseContainer) {
-    showcaseContainer.addEventListener('click', () => {
+    showcaseContainer.addEventListener('click', (e) => {
       dismiss();
     });
   }
