@@ -59,9 +59,10 @@ export const W = {
   },
   tagline: "A celebration of love, family & togetherness",
   quotes: [
-    "Our love began as a story, and today we make a promise to turn it into forever.",
+    "What God has joined together, let no one separate.",
     "A beautiful marriage is not something you build, it is something you build together."
   ],
+  quoteVerse: "Mark 10:9",
   invite: "We cordially invite your gracious presence and blessings on the auspicious occasion of the wedding ceremony of JORLIN JOSEPH & POOJA K SONY."
 };
 

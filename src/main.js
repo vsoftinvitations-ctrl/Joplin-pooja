@@ -63,7 +63,7 @@ if (app) {
           </div>
         </h2>
         ${orn}
-        <p class="quote r">“${W.quotes[0]}”</p>
+        <p class="quote r">“${W.quotes[0]}”${W.quoteVerse ? `<span class="quote-verse">— ${W.quoteVerse} —</span>` : ''}</p>
       </div>
     </section>
 
